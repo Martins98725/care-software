@@ -63,12 +63,9 @@ Usuário que recebe os cuidados.
 
 # 🛠️ Tecnologias
 
-> Ajuste conforme as tecnologias utilizadas no projeto.
-
 - Frontend: React / Next.js
 - Backend: Java / Spring boot
 - Banco de Dados: PostgreSQL / MySQL
-- Autenticação: JWT
 
 ---
 
