@@ -38,17 +38,6 @@ Responsável legal ou familiar do paciente.
 
 ---
 
-## 🧑 Paciente
-
-Usuário que recebe os cuidados.
-
-### Funcionalidades:
-- Visualizar informações básicas
-- Acompanhar rotina e atividades
-- Utilizar funcionalidades acessíveis do sistema
-
----
-
 # 🚀 Funcionalidades do Sistema
 
 - Cadastro de pacientes
