@@ -6,7 +6,7 @@ O sistema facilita a comunicação entre cuidadores, responsáveis e pacientes, 
 
 ---
 
-## 📌 Objetivo
+# 📌 Objetivo
 
 O objetivo do sistema é centralizar informações importantes sobre o paciente, melhorar a comunicação entre os envolvidos e auxiliar na rotina de acompanhamento e cuidados.
 
@@ -53,11 +53,59 @@ Responsável legal ou familiar do paciente.
 # 🛠️ Tecnologias
 
 - Frontend: React / Next.js
-- Backend: Java / Spring boot
+- Backend: Java / Spring Boot
 - Banco de Dados: PostgreSQL / MySQL
 
 ---
 
-# 🔒 Acessibilidade
+# 📦 Como Rodar o Frontend
 
-O sistema foi pensado para oferecer uma experiência acessível, intuitiva e inclusiva para todos os usuários.
+## ✅ Pré-requisitos
+
+Antes de começar, você precisa ter instalado:
+
+- Node.js
+- npm ou yarn
+
+Verifique se está instalado:
+
+```bash
+node -v
+npm -v
+```
+
+se o node não estiver instalado visite <a href="https://nodejs.org/pt-br/download">Node download</a> para baixar o node
+
+🚀 Instalação
+
+clone o projeto
+
+```bash
+git clone https://github.com/Martins98725/care-software.git
+```
+
+Instale as dependências:
+```bash
+npm install
+```
+
+▶️ Executando o projeto
+
+Para iniciar o servidor de desenvolvimento:
+```bash
+npm run dev
+```
+
+Scrips do projeto
+
+```bash
+npm run dev      # Executa o projeto em desenvolvimento
+npm run build    # Gera build de produção
+npm run start    # Inicia aplicação em produção
+npm run lint     # Executa o linter
+```
+
+# Backend
+
+- Java 21 (caso não tenha em sua maquina, baixe em <a href="https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html">Java 21 donwload</a>)
+- Spring Boot
