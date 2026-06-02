@@ -1,6 +1,11 @@
 spring:
   application:
-    name: care
+    name: care-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:test}
+  server:
+    servlet:
+      context-path: /api
 
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:postgres}
@@ -39,4 +44,5 @@ logging:
       hibernate:
         SQL: DEBUG
         type: DEBUG
+
 kind: Application
