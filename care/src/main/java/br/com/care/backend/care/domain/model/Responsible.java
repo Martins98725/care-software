@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "responsibles")
+@Table(name = "tb_responsible")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Responsible {
@@ -22,6 +22,11 @@ public class Responsible {
     private String degreeOfKinship;
     private String phoneNumber;
     private String address;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "responsible")
     private List<Patient> patients;
