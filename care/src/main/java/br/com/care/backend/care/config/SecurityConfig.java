@@ -27,29 +27,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                // Desabilita CSRF pois a autenticação é via token (Stateless)
                 .csrf(csrf -> csrf.disable())
-                // Configura a sessão como Stateless (não guarda sessão no servidor)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // Configuração das rotas de acesso
                 .authorizeHttpRequests(authorize -> authorize
-                        // Rotas públicas (Login e Cadastro não precisam de token)
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register/**").permitAll()
-
-                        // Exemplos de rotas protegidas por Perfil (Role)
-                        // O Spring Security exige que no Enum a role seja "RESPONSIBLE", mas no hasRole ele entende "ROLE_RESPONSIBLE" se você tiver configurado assim,
-                        // ou apenas usa hasAuthority se o mapeamento for exato. Aqui usamos hasRole que é o padrão.
                         .requestMatchers(HttpMethod.POST, "/api/patients/**").hasRole("RESPONSIBLE")
                         .requestMatchers(HttpMethod.PUT, "/api/patients/**").hasRole("RESPONSIBLE")
-
-                        // Rotas que tanto o Cuidador quanto o Responsável podem acessar
                         .requestMatchers(HttpMethod.GET, "/api/patients/**").hasAnyRole("RESPONSIBLE", "CAREGIVER")
-
-                        // Qualquer outra requisição precisa estar apenas autenticada (token válido)
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
-                // Adiciona o filtro do JWT ANTES do filtro padrão do Spring Security
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
