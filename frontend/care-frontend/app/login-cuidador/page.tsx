@@ -1,4 +1,44 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 export default function LoginCuidador() {
+  const [identificador, setIdentificador] = useState('');
+  const [password, setPassword] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: identificador, password: password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.accessToken);
+        router.push('/dashboard-cuidador');
+      } else {
+        setError('Credenciais inválidas. Verifique seu ID e senha.');
+      }
+    } catch (err) {
+      setError('Erro ao tentar conectar com o servidor. Tente novamente mais tarde.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="bg-surface text-on-surface min-h-screen flex flex-col">
       {/* Header */}
@@ -79,8 +119,14 @@ export default function LoginCuidador() {
             </p>
           </div>
 
+          {error && (
+            <div className="mb-4 p-3 rounded-lg bg-red-50 text-red-700 text-sm border border-red-200 text-center font-semibold">
+              {error}
+            </div>
+          )}
+
           {/* Form */}
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleLogin}>
             {/* Registro */}
             <div>
               <label
@@ -100,6 +146,9 @@ export default function LoginCuidador() {
                 <input
                   id="prof_id"
                   type="text"
+                  required
+                  value={identificador}
+                  onChange={(e) => setIdentificador(e.target.value)}
                   placeholder="Ex: COREN-SP 123456"
                   className="block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none"
                 />
@@ -124,18 +173,21 @@ export default function LoginCuidador() {
 
                 <input
                   id="prof_password"
-                  type="password"
+                  type={mostrarSenha ? 'text' : 'password'}
+                  required value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="block w-full pl-10 pr-10 py-3 border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none"
                 />
 
                 <button
                   type="button"
-                  aria-label="Mostrar senha"
+                  aria-label={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
+                  onClick={() => setMostrarSenha(!mostrarSenha)}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-primary"
                 >
                   <span className="material-symbols-outlined">
-                    visibility_off
+                    {mostrarSenha ? 'visibility_off' : 'visibility'}
                   </span>
                 </button>
               </div>
@@ -161,13 +213,14 @@ export default function LoginCuidador() {
             {/* Botão */}
             <button
               type="submit"
-              className="w-full flex justify-center items-center py-3 px-4 rounded-lg text-on-primary bg-secondary hover:opacity-90 transition-colors font-bold"
+              disabled={isLoading}
+              className={`w-full flex justify-center items-center py-3 px-4 rounded-lg text-on-primary bg-secondary hover:opacity-90 transition-colors font-bold ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
               <span className="material-symbols-outlined mr-2">
                 login
               </span>
 
-              Acessar Painel de Controle
+              {isLoading ? 'Autenticando...' : 'Acessar Painel de Controle'}
             </button>
           </form>
 
@@ -200,7 +253,7 @@ export default function LoginCuidador() {
           </p>
 
           <p className="text-xs text-gray-500">
-            © 2024 CareConnect. Todos os direitos reservados.
+            © 2026 CareConnect. Todos os direitos reservados.
           </p>
         </div>
       </footer>
