@@ -45,17 +45,20 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         try {
             // 1. Extrai o token do cabeçalho
             String token = this.recoverToken(request);
 
-            if (token != null && !token.isEmpty()) {
+            if (token != null) {
                 // 2. O TokenService valida a assinatura e a expiração, e devolve o email
                 String email = tokenService.validateToken(token);
 
                 if (email != null && !email.isEmpty()) {
                     // 3. Busca o usuário no banco de dados (que implementa UserDetails)
-                    userRepository.findByEmail(email).ifPresent(user -> {
+                    UserDetails user = userRepository.findByEmail(email);
+
+                    if (user != null) {
                         // 4. Cria o objeto de autenticação que o Spring entende
                         var authentication = new UsernamePasswordAuthenticationToken(
                                 user,
@@ -65,17 +68,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
                         // 5. Injeta o usuário no contexto da requisição atual
                         SecurityContextHolder.getContext().setAuthentication(authentication);
-                    });
+                    } else {
+                        log.warn("Tentativa de acesso: Token válido, mas usuário não existe no banco: {}", email);
+                    }
                 }
             }
         } catch (Exception e) {
             // Se der erro na extração ou validação, não trava a aplicação.
             // Apenas logamos e deixamos o Spring Security bloquear por falta de autenticação.
-            log.error("Erro interno ao processar o filtro JWT", e);
+            log.error("Erro interno ao processar o filtro JWT: {}", e.getMessage());
         }
-
-        // Importante: sempre continuar a cadeia de filtros para que a requisição alcance o controller
-        filterChain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request) {
