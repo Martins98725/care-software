@@ -1,57 +1,66 @@
 @import "tailwindcss";
 
 @theme {
+  /* Cores Principais */
   --color-primary: #005fa0;
   --color-secondary: #45617b;
+  --color-tertiary: #006b2b;
+  --color-error: #ba1a1a;
 
+  /* Superfícies (Backgrounds) */
+  --color-background: #f8f9fa;
   --color-surface: #f8f9fa;
-  --color-surface-container-low: #f3f4f5;
   --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f4f5;
+  --color-surface-container: #edeeef;
+  --color-surface-container-high: #e7e8e9;
+  --color-inverse-surface: #2e3132;
 
-  --color-outline-variant: #c0c7d3;
-
+  /* Textos e Bordas */
+  --color-on-background: #191c1d;
   --color-on-surface: #191c1d;
   --color-on-surface-variant: #404751;
-
-  --color-primary-container: #0478c8;
-  --color-secondary-container: #c2e0ff;
-
-  --color-on-primary: #ffffff;
-}
-
-:root {
-  --color-primary: #005fa0;
-  --color-secondary: #45617b;
-
-  --color-surface: #f8f9fa;
-  --color-surface-container-low: #f3f4f5;
-  --color-surface-container-lowest: #ffffff;
-
+  --color-outline: #707883;
   --color-outline-variant: #c0c7d3;
 
-  --color-on-surface: #191c1d;
-  --color-on-surface-variant: #404751;
-
+  /* Containers de destaque */
   --color-primary-container: #0478c8;
+  --color-on-primary-container: #ffffff;
   --color-secondary-container: #c2e0ff;
+  --color-on-secondary-container: #001d32;
+  --color-tertiary-container: #008738;
+  --color-on-tertiary-container: #f7fff2;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
 
-  --color-on-primary: #ffffff;
+  /* Espaçamentos customizados do dashboard */
+  --spacing-touch-target-min: 48px;
+  --spacing-pro-margin: 16px;
+  --spacing-patient-margin: 32px;
+  --spacing-gutter: 16px;
 }
 
-html,
-body {
+html, body {
   min-height: 100%;
 }
 
 body {
-  background: var(--color-surface);
+  background: var(--color-background);
   color: var(--color-on-surface);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .material-symbols-outlined {
   font-variation-settings:
     "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+.material-symbols-outlined.fill {
+  font-variation-settings:
+    "FILL" 1,
     "wght" 400,
     "GRAD" 0,
     "opsz" 24;

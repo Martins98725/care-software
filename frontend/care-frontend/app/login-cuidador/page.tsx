@@ -234,7 +234,7 @@ export default function LoginCuidador() {
             </a>
 
             <a
-              href="#"
+              href="/cadastro"
               className="text-secondary hover:underline"
             >
               Primeiro acesso para Profissionais
