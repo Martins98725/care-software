@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:care}
     username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
+    password: ${DB_PASSWORD:se3nh@p0st4gr33m}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -33,7 +33,7 @@ springdoc:
 
 security:
   jwt:
-    secret-key: ${JWT_SECRET:minha-chave-secreta-para-desenvolvimento}
+    secret-key: ${JWT_SECRET:se3nh@p0st4gr33m}
     expiration-size: 3600000
     open-urls:
       - /auth/**
