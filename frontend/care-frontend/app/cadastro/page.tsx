@@ -204,17 +204,18 @@ export default function CadastroUsuario() {
                   key={label}
                   className="flex flex-col items-center gap-2 z-10"
                 >
-                      <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold relative z-20
-                            ${current < step
-                                  ? "bg-green-600 border-green-600 text-white"
-                                  : current === step
-                                      ? "bg-[var(--color-primary)] border-[var(--color-primary)] text-white"
-                                      : "bg-white border-gray-300 text-gray-700"
-                              }`}
-                      >
-                          {current < step ? "✓" : current}
-</div>
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold
+                    ${
+                      current < step
+                        ? "bg-green-600 text-white border-green-600"
+                        : current === step
+                        ? "bg-primary text-white border-primary"
+                        : "bg-surface-container-highest border-outline-variant"
+                    }`}
+                  >
+                    {current < step ? "✓" : current}
+                  </div>
 
                   <span
                     className={`text-xs font-bold ${
