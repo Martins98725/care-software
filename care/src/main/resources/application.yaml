@@ -24,7 +24,6 @@ spring:
           autoRegisterListeners: true
           storeDataAtDelete: true
 
-# ⚠️ Correção de Indentação: O springdoc e security devem ficar na raiz, e não dentro do spring.jpa!
 springdoc:
   swagger-ui:
     enabled: true
